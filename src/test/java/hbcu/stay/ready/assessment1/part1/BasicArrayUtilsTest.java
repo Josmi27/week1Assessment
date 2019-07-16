@@ -109,5 +109,4 @@ public class BasicArrayUtilsTest {
         // Then
         Assert.assertEquals(expected, actual);
     }
-
 }
