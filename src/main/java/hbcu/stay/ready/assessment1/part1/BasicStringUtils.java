@@ -1,5 +1,8 @@
 package hbcu.stay.ready.assessment1.part1;
 
+import com.sun.xml.internal.fastinfoset.util.StringArray;
+
+import java.util.ArrayList;
 import java.util.StringJoiner;
 
 /**
@@ -13,22 +16,13 @@ public class BasicStringUtils {
     public static String camelCase(String str) {
 
 
-//        String[] stringedArray = str.split(" ");
-//
-//        for (int i = 0; i < stringedArray.length; i++) {
-//            stringedArray[i] = "" + stringedArray[i].toUpperCase().charAt(0);
-//        }
-//
-//        StringJoiner NewString = new StringJoiner(" ");
-//        for (String element : stringedArray) {
-//            NewString.add(element);
-//        }
-//
-//        String answer = NewString.toString();
-//
-//        System.out.println(stringedArray);
-//        return stringedArray[0];
-        return  null;
+        String[] stringedArray = str.split(" ");
+        String solution = "";
+        for (int i = 0; i < stringedArray.length; i++) {
+            char curr = stringedArray[i].toUpperCase().charAt(0);
+            solution += curr + stringedArray[i].substring(1) + " ";
+        }
+        return  solution.trim();
     }
 
     /**
@@ -48,21 +42,27 @@ public class BasicStringUtils {
      */
     public static String reverseWords(String str) {
 
-        String[] stringedArray = str.split(" ");
-        String reversed = "";
+        // Add all words into a stringed array
+        String[] stringed = str.split(" ");
+        String sol = "";
 
-        for (int i = 0; i < stringedArray.length; i++) {
-            stringedArray[i] = "" + stringedArray[i].substring(0,1).toUpperCase();
-            reversed += stringedArray[i].replaceAll("s", "S");
-        }
+        // Iterate through string
+        for (int i = 0; i < stringed.length; i++){
 
-        String answer = "";
-        StringBuilder Reversed = new StringBuilder();
-        Reversed.append(str);
-        for (int x = 0; x < Reversed.length(); x++) {
-//            answer += "" + Reversed[x].reverse();
+            // Create an instance of StringBuilder, because it has a reverse function
+            StringBuilder sb = new StringBuilder();
+
+            // Add the string that you want to reverse to the instance
+            sb.append(stringed[i]);
+
+            // Reverse the string, then convert it into a string
+            String rev = sb.reverse().toString();
+
+            // Save the solution into the sol variable, added by a space
+            sol += rev + " ";
         }
-        return reversed;
+        // Trim will delete the trailing space that is at the end
+        return sol.trim();
     }
 
     /**
@@ -70,6 +70,27 @@ public class BasicStringUtils {
      * @return string with identical contents, in reverse order, with first character capitalized
      */
     public static String reverseThenCamelCase(String str) {
+        // Step 1: Reverse position of words in String
+        String[] reverseWordPosition = str.split(" ");
+        ArrayList<String> step1 = new ArrayList<String>();
+
+        for(int i = reverseWordPosition.length-1; i > -1; i--) {
+            step1.add(reverseWordPosition[i]);
+        }
+        System.out.println(step1);
+
+        // Step 2: Reverse each word in the newly reversed String
+        String nearSolution = "";
+        for(int i = 0; i < step1.size();i++) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(step1.get(i));
+            nearSolution += sb.reverse().toString() + " ";
+        }
+
+        nearSolution = nearSolution.trim();
+        System.out.println(nearSolution);
+        // Step 3: Capitalize first letter of each word in the newly reversed String
+
         return null;
     }
 
@@ -79,9 +100,8 @@ public class BasicStringUtils {
      * @return string with identical contents excluding first and last character
      */
     public static String removeFirstAndLastCharacter(String str) {
-
-
-        return null;
+        String sol = str.substring(1,str.length()-1);
+        return sol;
     }
 
     /**
@@ -90,20 +110,11 @@ public class BasicStringUtils {
      */
     public static String invertCasing(String str) {
         String answer = "";
-        for (int x = 0; x < str.length(); x++) {
-            if (str.charAt(x) == str.toUpperCase().charAt(x)) {
-                str.toLowerCase().charAt(x);
-                answer += str.charAt(x);
-                continue;
+        for (int i = 0; i < str.length();i++) {
+            char currLetter = str.charAt(i);
+            if(str.charAt(i) == str.substring(i,i+1).toUpperCase()) {
+                
             }
-
-            if (str.charAt(x) == str.toLowerCase().charAt(x)) {
-                str.toUpperCase().charAt(x);
-                answer += str.charAt(x);
-                continue;
-            }
-
-            continue;
         }
         return answer;
     }
